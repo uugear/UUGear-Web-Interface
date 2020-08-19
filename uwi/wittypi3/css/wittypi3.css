@@ -1,0 +1,26 @@
+.left {
+  float: left;
+  padding: 0px 10px 0px 0px;
+  width: 280px;
+  font-size: 24px;
+  font-family: "Arial", "Verdana";
+  font-weight: bold;
+  line-height: 80px;
+  text-align: right;
+  color: #008845;
+}
+
+.middle {
+  top: 10px;
+  margin-left: 300px;
+  margin-right: 100px;
+  font-size: 24px;
+  font-family: "Arial", "Verdana";
+  line-height: 80px;
+}
+
+.right {
+  float: right;
+  padding: 0px 10px 0px 10px;
+  width: 90px;
+}

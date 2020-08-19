@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UUGear Web Interface (UWI)</title>
+    <meta name="viewport" content="width=700">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/common.css">
+    <script type="text/javascript" src="../uwi.conf"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../common/js/common.js"></script>
+  </head>
+  <body>
+  <div class="content">
+  <H1>UUGear Web Interface (UWI)</H1>
+	<p class='headline'>Available Devices: </p>
+	<div class='deviceButton rpi'><img class='thumb' src='rpi/img/thumb.png'></img>Raspberry Pi (GPIO)<div class='info'>Model: ------</div></div>
+	<div class='deviceButton wittypi3' style='display:none'><img class='thumb' src='wittypi3/img/thumb.png'></img>Witty Pi 3<div class='info'>RTC and power management (full sized or mini version)</div></div>
+	<div class='deviceButton zero2go' style='display:none'><img class='thumb' src='zero2go/img/thumb.png'></img>Zero2Go Omini<div class='info'>Multi-channel, wide input range power supply</div></div>
+  </div>
+  <script>
+  $(document).ready(function(){
+    sharedWS.addCompositeTask([
+      { msg: 'rpi|api_get_rpi_model', callback: function(event) {
+        $('.rpi .info').text('Model: ' + event.data);
+      }},
+      { msg: 'wittypi3|api_has_hardware', callback: function(event) {
+        $('.deviceButton.wittypi3').css("display", event.data != 'yes' ? 'none' : 'block');
+      }},
+      { msg: 'zero2go|api_has_hardware', callback: function(event) {
+        $('.deviceButton.zero2go').css("display", event.data != 'yes' ? 'none' : 'block');
+      }}
+    ]);
+    
+    $('.rpi').click(function(){
+    	window.open('rpi', '_self');
+    });
+    $('.wittypi3').click(function(){
+    	window.open('wittypi3', '_self');
+    });
+    $('.zero2go').click(function(){
+    	window.open('zero2go', '_self');
+    });
+  });
+  footer();
+  </script>
+  </body>
+</html>

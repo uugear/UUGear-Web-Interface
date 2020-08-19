@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zero2Go Omini</title>
+    <meta name="viewport" content="width=700">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery.timepicker.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../zero2go/css/zero2go.css">
+    <script type="text/javascript" src="../uwi.conf"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="../common/js/common.js"></script>
+    <script type="text/javascript" src="./js/zero2go.js"></script>
+  </head>
+  <body>
+  <div class="content">
+    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> Zero2Go Omini</H1>
+    <div class="section">
+      <img src="img/zero2go.jpg" style="float:left; margin-right:20px;"></img>
+      <div class="overview" style="line-height: 30px;">
+        <div style="float:right"><a title="Auto refresh on/off"><img id="refresh" src="../common/img/refresh_disabled.gif"></img></a></div>
+        <div>Channel-A: <span id="cha">0.0V</span></div>
+        <div>Channel-B: <span id="chb">0.0V</span></div>
+        <div>Channel-C: <span id="chc">0.0V</span></div>
+        <div>Working Mode: <span id="work_mode">Step-Up</span></div>
+      </div>
+      <div class="row">
+        <div class="left">Default State when Powered:</div>
+        <div class="right"><button id="set_default_state">Set</button></div>
+        <div class="middle" id="default_state">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Blinking Interval when Standby:</div>
+        <div class="right"><button id="set_blinking_interval">Set</button></div>
+        <div class="middle" id="blinking_interval">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">After Shutdown, Cut Power in:</div>
+        <div class="right"><button id="set_cut_power_delay">Set</button></div>
+        <div class="middle" id="cut_power_delay">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Low Voltage Threshold:</div>
+        <div class="right"><button id="set_low_voltage">Set</button></div>
+        <div class="middle" id="low_voltage">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Recovery Voltage Threshold:</div>
+        <div class="right"><button id="set_recovery_voltage">Set</button></div>
+        <div class="middle" id="recovery_voltage">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Step-Down Engine Always-On?</div>
+        <div class="right"><button id="set_bulk_alwayson">Set</button></div>
+        <div class="middle" id="bulk_alwayson">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+  <script>
+  $(document).ready(function(){
+  	sharedWS.addTask('zero2go|api_has_hardware', function(event) {
+      if (event.data != 'yes') {
+      	missingZero2Go();
+      } else {
+      	sharedWS.addTask('zero2go|api_has_software', function(event) {
+	      	if (event.data != 'yes') {
+	      		missingSoftware();
+	      	} else {
+	      		refresh();
+	      	}
+	      });
+      }
+    });
+    
+    var ref_int = null;
+    var ref_btn = $('#refresh');
+    ref_btn.click(function() {
+      if (ref_int == null) {
+        ref_int = setInterval(refreshOverview, 1000);
+        ref_btn.attr('src', '../common/img/refresh.gif');
+      } else {
+        clearInterval(ref_int);
+        ref_btn.attr('src', '../common/img/refresh_disabled.gif');
+        ref_int = null;
+      }
+    });
+    
+    $('#set_default_state').click(set_default_state);
+    $('#set_blinking_interval').click(set_blinking_interval);
+    $('#set_cut_power_delay').click(set_cut_power_delay);
+    $('#set_low_voltage').click(set_low_voltage);
+    $('#set_recovery_voltage').click(set_recovery_voltage);
+    $('#set_bulk_alwayson').click(set_bulk_alwayson);
+  });
+  footer();
+  </script>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Witty Pi 3</title>
+    <meta name="viewport" content="width=700">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery.timepicker.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../wittypi3/css/wittypi3.css">
+    <script type="text/javascript" src="../uwi.conf"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="../common/js/common.js"></script>
+    <script type="text/javascript" src="./js/wittypi3.js"></script>
+  </head>
+  <body>
+  <div class="content">
+    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> Witty Pi 3</H1>
+    <div class="section">
+      <img src="img/wittypi3.jpg" style="float:left; margin-right:10px;"></img>
+      <div class="overview" style="line-height: 43px;">
+        <div style="float:right"><a title="Auto refresh on/off"><img id="refresh" src="../common/img/refresh_disabled.gif"></img></a></div>
+        <div>Temperature: <span id="temperature"></span></div>
+        <div>RPi Time: <span id="rpi_time"></span></div>
+        <div>RTC Time: <span id="rtc_time"></span></div>
+        <div><span id="v_in">Vin=</span> <span id="v_out">Vout=</span> <span id="i_out">Iout=</span></div>
+      </div>
+      <div class="row">
+        <button id="sys_to_rtc">RPi Time &#9658; RTC Time</button>
+        <button id="rtc_to_sys">RPi Time &#9668; RTC Time</button>
+        <button id="sync">Synchronize</button>
+      </div>
+      <div class="row">
+        <div class="left">Next Shutdown:</div>
+        <div class="right"><button id="next_shutdown">Set</button></div>
+        <div class="middle" id="shutdown_time">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Next Startup:</div>
+        <div class="right"><button id="next_startup">Set</button></div>
+        <div class="middle" id="startup_time">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Schedule Script:</div>
+        <div class="right"><button id="set_script">Set</button></div>
+        <div class="middle" id="schedule_script">&nbsp;</div>
+      </div>
+
+      <div class="row">
+        <div class="left">Low Voltage:</div>
+        <div class="right"><button id="set_low_voltage">Set</button></div>
+        <div class="middle" id="low_voltage">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Recovery Voltage:</div>
+        <div class="right"><button id="set_recovery_voltage">Set</button></div>
+        <div class="middle" id="recovery_voltage">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Default State:</div>
+        <div class="right"><button id="set_default_state">Set</button></div>
+        <div class="middle" id="default_state">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Cut Power Delay:</div>
+        <div class="right"><button id="set_cut_power_delay">Set</button></div>
+        <div class="middle" id="cut_power_delay">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Pulsing Interval:</div>
+        <div class="right"><button id="set_pulsing_interval">Set</button></div>
+        <div class="middle" id="pulsing_interval">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">White LED Duration:</div>
+        <div class="right"><button id="set_led_duration">Set</button></div>
+        <div class="middle" id="led_duration">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Dummy Load Duration:</div>
+        <div class="right"><button id="set_dummy_load_duration">Set</button></div>
+        <div class="middle" id="dummy_load_duration">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Vin Adjustment:</div>
+        <div class="right"><button id="set_vin_adjustment">Set</button></div>
+        <div class="middle" id="vin_adjustment">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Vout Adjustment:</div>
+        <div class="right"><button id="set_vout_adjustment">Set</button></div>
+        <div class="middle" id="vout_adjustment">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="left">Iout Adjustment:</div>
+        <div class="right"><button id="set_iout_adjustment">Set</button></div>
+        <div class="middle" id="iout_adjustment">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+  <script>
+  $(document).ready(function(){
+  	sharedWS.addTask('wittypi3|api_has_hardware', function(event) {
+      if (event.data != 'yes') {
+      	missingWittyPi3();
+      } else {
+      	sharedWS.addTask('wittypi3|api_has_software', function(event) {
+	      	if (event.data != 'yes') {
+	      		missingSoftware();
+	      	} else {
+	      		refresh();
+	      	}
+	      });
+      }
+    });
+    var ref_int = null;
+    var ref_btn = $('#refresh');
+    ref_btn.click(function() {
+      if (ref_int == null) {
+        ref_int = setInterval(refreshOverview, 1000);
+        ref_btn.attr('src', '../common/img/refresh.gif');
+      } else {
+        clearInterval(ref_int);
+        ref_btn.attr('src', '../common/img/refresh_disabled.gif');
+        ref_int = null;
+      }
+    });
+    
+    $('#sys_to_rtc').click(sys_to_rtc);
+    $('#rtc_to_sys').click(rtc_to_sys);
+    $('#sync').click(sync);
+    $('#next_shutdown').click(next_shutdown);
+    $('#next_startup').click(next_startup);
+    $('#set_script').click(set_script);
+    
+    $('#set_low_voltage').click(set_low_voltage);
+    $('#set_recovery_voltage').click(set_recovery_voltage);
+    $('#set_default_state').click(set_default_state);
+    $('#set_cut_power_delay').click(set_cut_power_delay);
+    $('#set_pulsing_interval').click(set_pulsing_interval);
+    $('#set_led_duration').click(set_led_duration);
+    $('#set_dummy_load_duration').click(set_dummy_load_duration);
+    $('#set_vin_adjustment').click(set_vin_adjustment);
+    $('#set_vout_adjustment').click(set_vout_adjustment);
+    $('#set_iout_adjustment').click(set_iout_adjustment);
+    
+  });
+  footer();
+  </script>
+  </body>
+</html>

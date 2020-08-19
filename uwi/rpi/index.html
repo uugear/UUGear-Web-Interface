@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Raspberry Pi (GPIO)</title>
+    <meta name="viewport" content="width=700">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/common.css">
+    <link rel="stylesheet" type="text/css" href="./css/rpi.css">
+    <script type="text/javascript" src="../uwi.conf"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../common/js/common.js"></script>
+    <script type="text/javascript" src="./js/rpi.js"></script>
+  </head>
+  <body>
+  <div class="content">
+    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> Raspberry Pi (GPIO)</H1>
+    <div class="section">
+    <div class="overview" style="line-height: 50px;">
+        <div style="float:right"><a title="Auto refresh on/off"><img id="refresh" src="../common/img/refresh_disabled.gif"></img></a></div>
+        <div id='rpiModel'>Raspberry Pi</div>
+    </div>
+      
+    <table id='gpioTable'>
+      <tr>
+        <td class='tool'></td><td class='gpio_value dc3v3'></td><td class='dc3v3 lcol'></td><td class='gpio_label dc3v3 lcol'>3.3V</td><td class='gpio_header'>1</td>
+          <td class='gpio_header'>2</td><td class='gpio_label dc5v rcol'>5V</td><td class='dc5v rcol'></td><td class='gpio_value dc5v'></td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value alt0'>1</td><td class='gpio_mode alt0 lcol'>ALT0</td><td class='gpio_label lcol'>GPIO-2</td><td class='gpio_header'>3</td>
+          <td class='gpio_header'>4</td><td class='gpio_label dc5v rcol'>5V</td><td class='dc5v rcol'></td><td class='gpio_value dc5v'></td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value alt0'>1</td><td class='gpio_mode alt0 lcol'>ALT0</td><td class='gpio_label lcol'>GPIO-3</td><td class='gpio_header'>5</td>
+          <td class='gpio_header'>6</td><td class='gpio_label gnd rcol'>GND</td><td class='gnd rcol'></td><td class='gpio_value gnd'></td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>1</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-4</td><td class='gpio_header'>7</td>
+          <td class='gpio_header'>8</td><td class='gpio_label rcol'>GPIO-14</td><td class='gpio_mode alt0 rcol'>ALT0</td><td class='gpio_value alt0'>1</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value gnd'></td><td class='gnd lcol'></td><td class='gpio_label gnd lcol'>GND</td><td class='gpio_header'>9</td>
+          <td class='gpio_header'>10</td><td class='gpio_label rcol'>GPIO-15</td><td class='gpio_mode alt0 rcol'>ALT0</td><td class='gpio_value alt0'>1</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value output'>0</td><td class='gpio_mode output lcol'>OUT</td><td class='gpio_label lcol'>GPIO-17</td><td class='gpio_header'>11</td>
+          <td class='gpio_header'>12</td><td class='gpio_label rcol'>GPIO-18</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-27</td><td class='gpio_header'>13</td>
+          <td class='gpio_header'>14</td><td class='gpio_label gnd rcol'>GND</td><td class='gnd rcol'></td><td class='gpio_value gnd'></td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-22</td><td class='gpio_header'>15</td>
+          <td class='gpio_header'>16</td><td class='gpio_label rcol'>GPIO-23</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value dc3v3'></td><td class='dc3v3 lcol'></td><td class='gpio_label dc3v3 lcol'>3.3V</td><td class='gpio_header'>17</td>
+          <td class='gpio_header'>18</td><td class='gpio_label rcol'>GPIO-24</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-10</td><td class='gpio_header'>19</td>
+          <td class='gpio_header'>20</td><td class='gpio_label gnd rcol'>GND</td><td class='gnd rcol'></td><td class='gpio_value gnd'></td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-9</td><td class='gpio_header'>21</td>
+          <td class='gpio_header'>22</td><td class='gpio_label rcol'>GPIO-25</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-11</td><td class='gpio_header'>23</td>
+          <td class='gpio_header'>24</td><td class='gpio_label rcol'>GPIO-8</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>1</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value gnd'></td><td class='gnd lcol'></td><td class='gpio_label gnd lcol'>GND</td><td class='gpio_header'>25</td>
+          <td class='gpio_header'>26</td><td class='gpio_label rcol'>GPIO-7</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>1</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>1</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-0</td><td class='gpio_header'>27</td>
+          <td class='gpio_header'>28</td><td class='gpio_label rcol'>GPIO-1</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>1</td><td class='tool'></td>
+      </tr>      
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>1</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-5</td><td class='gpio_header'>29</td>
+          <td class='gpio_header'>30</td><td class='gpio_label gnd rcol'>GND</td><td class='gnd rcol'></td><td class='gpio_value gnd'></td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>1</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-6</td><td class='gpio_header'>31</td>
+          <td class='gpio_header'>32</td><td class='gpio_label rcol'>GPIO-12</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-13</td><td class='gpio_header'>33</td>
+          <td class='gpio_header'>34</td><td class='gpio_label gnd rcol'>GND</td><td class='gnd rcol'></td><td class='gpio_value gnd'></td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-19</td><td class='gpio_header'>35</td>
+          <td class='gpio_header'>36</td><td class='gpio_label rcol'>GPIO-16</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value input'>0</td><td class='gpio_mode input lcol'>IN</td><td class='gpio_label lcol'>GPIO-26</td><td class='gpio_header'>37</td>
+          <td class='gpio_header'>38</td><td class='gpio_label rcol'>GPIO-20</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+      <tr>
+        <td class='tool'></td><td class='gpio_value gnd'></td><td class='gnd lcol'></td><td class='gpio_label gnd lcol'>GND</td><td class='gpio_header'>39</td>
+          <td class='gpio_header'>40</td><td class='gpio_label rcol'>GPIO-21</td><td class='gpio_mode input rcol'>IN</td><td class='gpio_value input'>0</td><td class='tool'></td>
+      </tr>
+    </table>
+  
+    </div>
+  </div>
+  <script>
+  $(document).ready(function(){
+    sharedWS.addTask('rpi|api_get_rpi_model', function(event) {
+		  $('#rpiModel').text(event.data);
+		  var isRPi4 = event.data.includes('Raspberry Pi 4');
+		  sharedWS.addTask('rpi|api_get_wiringpi_version', function(event) {
+		  	var ver = event.data;
+		  	if (ver == 0.00) {
+		  		needWiringPi();
+		  	} else if (isRPi4 && ver < 2.52) {
+		    	needWiringPiForPi4(ver);
+		    } else {
+		      refreshGPIO();
+		    }
+	    });
+	  });
+	  
+    var ref_int = null;
+    var ref_btn = $('#refresh');
+    ref_btn.click(function() {
+      if (ref_int == null) {
+        ref_int = setInterval(refreshGPIO, 1000);
+        ref_btn.attr('src', '../common/img/refresh.gif');
+      } else {
+        clearInterval(ref_int);
+        ref_btn.attr('src', '../common/img/refresh_disabled.gif');
+        ref_int = null;
+      }
+    });
+    setupValueButtons();
+    setupModeButtons();
+  });
+  footer();
+  </script>
+  </body>
+</html>

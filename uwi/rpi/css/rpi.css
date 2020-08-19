@@ -1,0 +1,162 @@
+#rpiModel {
+	height: 50px;
+	padding-left: 30px;
+	font-size: 26px;
+}
+#gpioTable {
+	border: 0px;
+	width: 100%;
+	border-spacing: 0px;
+  border-collapse: separate;
+  font-family: 'Arial';
+  font-size: 24px;
+  -webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: -moz-none;
+	-o-user-select: none;
+	user-select: none;
+}
+.gpio_header {
+	color: #ffd700;
+	background-color: #333333;
+	width: 32px;
+	height: 32px;
+	padding: 0px;
+	border: 1px solid black;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 16px;
+}
+.dc3v3 {
+	background-color: #ffffaa;
+}
+.dc5v {
+	background-color: #ffdddd;
+}
+.gnd {
+	background-color: #cccccc;
+}
+.gpio_label {
+	width: 110px;
+}
+.gpio_label.lcol {
+	text-align: right;
+	padding-right: 5px;
+}
+.gpio_label.rcol {
+	text-align: left;
+	padding-left: 5px;
+}
+.gpio_mode {
+	text-align: center;
+	width: 80px;
+	cursor: pointer;
+	margin: 2px;
+}
+.gpio_mode.lcol {
+	text-align: left;	
+}
+.gpio_mode.rcol {
+	text-align: right;	
+}
+.gpio_mode.alt0 {
+	background-color: #adffff;
+}
+.gpio_mode.alt0:hover {
+	background-color: #4dffff;
+}
+.gpio_mode.alt0:active {
+  background-color: #00ffff;
+  transform: translateY(1px);
+}
+.gpio_mode.input {
+	background-color: #acffb9;
+}
+.gpio_mode.input:hover {
+	background-color: #76ee7e;
+}
+.gpio_mode.input:active {
+  background-color: #00dc44;
+  transform: translateY(1px);
+}
+.gpio_mode.input.lcol:before {
+	content: "\27A4";
+	margin-right:5px;
+}
+.gpio_mode.input.rcol:after {
+	content: "\27A4";
+	margin-left:5px;
+	display: inline-block;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.gpio_mode.input.up.lcol:after {
+	content: "\21E1";
+	margin-left:5px;
+}
+.gpio_mode.input.up.rcol:before {
+	content: "\21E1";
+	margin-right:5px;
+}
+.gpio_mode.input.down.lcol:after {
+	content: "\21E3";
+	margin-left:5px;
+}
+.gpio_mode.input.down.rcol:before {
+	content: "\21E3";
+	margin-right:5px;
+}
+.gpio_mode.output {
+	background-color: #ffdebb;
+}
+.gpio_mode.output:hover {
+  background-color: #ffca91;
+}
+.gpio_mode.output:active {
+  background-color: #ffb665;
+  transform: translateY(1px);
+}
+.gpio_mode.output.lcol:before {
+	content: "\27A4";
+	margin-right:5px;
+	display: inline-block;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.gpio_mode.output.rcol:after {
+	content: "\27A4";
+	margin-left:5px;
+}
+.gpio_value {
+	text-align: center;
+	width: 40px;
+	height: 32px;
+	border: 0px;
+}
+.gpio_value.input {
+	background-color: #00b200;
+	color: #ffffff;	
+}
+.gpio_value.alt0 {
+	background-color: #00b2b2;
+	color: #ffffff;	
+}
+.gpio_value.output {
+	background-color: #ff7f00;
+	color: #ffffff;
+	cursor: pointer;
+}
+.gpio_value.output:hover {
+  background-color: #d96d00;
+}
+.gpio_value.output:active {
+  background-color: #b25900;
+  transform: translateY(1px);
+}

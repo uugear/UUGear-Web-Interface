@@ -1,0 +1,177 @@
+html,body {
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  height: 100%;
+}
+
+body {
+	background-color: #cccccc;
+	margin: 0px;
+	padding: 0px;
+}
+
+.content {
+	background-color: white;
+  max-width: 700px;
+  min-height: 100%;
+  margin: auto;
+  padding: 0px;
+  border: 0px;
+}
+
+.section {
+	margin: 20px;
+}
+
+.homebutton {
+	color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.homebutton:hover {
+  color: #006600;
+}
+
+.homebutton:active {
+  color: #004400;
+}
+
+H1 {
+	font-size: 28px;
+	font-family: "Arial", "Verdana";
+	background-color: #22A55B;
+	color: white;
+	margin: 0px;
+	padding: 10px 20px;
+}
+
+p {
+	font-family: "Arial";
+	font-weight: normal;
+	font-size: 14px;
+	color: #003300;
+}
+
+p.headline {
+	font-size: 18px;
+	padding: 0 25px;
+}
+
+.footer {
+	width: 100%;
+  background-color: #22A55B;
+  color: white;
+  font-family: "Arial";
+	font-weight: normal;
+	font-size: 14px;
+  text-align: right;
+  padding: 5px 20px;
+  margin-top: 30px;
+}
+
+.footer a {
+	color: white;	
+}
+
+.deviceButton {
+	height: 75px;
+	border: 2px solid #008000;
+	border-radius: 10px;
+	font-family: "Arial";
+	font-weight: bold;
+	font-size: 26px;
+	background-color: #f0fff0;
+	color: #333333;
+	padding: 20px;
+	margin: 20px;
+	cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+.deviceButton:hover {
+  background-color: #ddffdd;
+}
+
+.deviceButton:focus {
+	outline:0;
+}
+
+.deviceButton:active {
+  background-color: #ccffcc;
+  transform: translateY(2px);
+}
+
+.deviceButton .thumb {
+  float: left;
+  margin-right: 20px;
+  border: 1px solid #008000;
+}
+
+.deviceButton .info {
+	font-size: 18px;
+	font-weight: normal;
+	color: #666666;
+	margin-top: 15px;
+}
+
+.overview {
+	font-size: 16px;
+	font-family: "Courier New", Courier, monospace;
+	font-weight: bold;
+	color: #535353;
+}
+
+#refresh {
+	cursor: pointer;
+}
+	
+button {
+  background-color: #22A55B;
+  border: 1px solid #22A55B;
+  border-radius: 5px;
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: "Arial", "Verdana";
+  font-weight: bold;
+  margin: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px #7B7B7B;
+}
+
+button:hover {
+  background-color: #008845;
+}
+
+button:focus {
+	outline:0;
+}
+
+button:active {
+  background-color: #008845;
+  box-shadow: 0 2px #606060;
+  transform: translateY(2px);
+}
+
+button.ui-dialog-titlebar-close {
+	box-shadow: 0 0px #7B7B7B;
+}
+
+.row {
+	display: block;
+	border-width: 1px 1px 1px 1px;
+  border-color: #ffffff;
+  border-top-color: #cccccc;
+  border-style: solid;
+  margin: 0px;
+  color: #333333;
+}
