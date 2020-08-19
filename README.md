@@ -1,5 +1,5 @@
 # UUGear-Web-Interface
-UUGear Web Interface (UWI) is an very lightweight web server that allows you to access your Raspberry Pi and UUGear devices in web browser. It only uses very limited system resource (about 2~6% CPU) and even Raspberry Pi Zero (W) can run it very well.
+UUGear Web Interface (UWI) is an very lightweight web server that allows you to access your Raspberry Pi and UUGear devices in web browser. It only uses very limited system resource (about 2~6% CPU usage) and even Raspberry Pi Zero (W) can run it very well.
 
 ## Supported Devices
 Currently UUGear Web Interface supports three devices:
