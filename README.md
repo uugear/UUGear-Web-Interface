@@ -13,6 +13,7 @@ You can install UWI with this single command line:
 
 Alternatively, you can download the install script and run it.
 > wget http://www.uugear.com/repo/UWI/installUWI.sh
+
 > sudo sh installUWI.sh
 
 If you install software for Witty Pi 3 (Mini) or Zero2Go Omini, their install script will also install UWI for you.
