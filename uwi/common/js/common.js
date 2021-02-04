@@ -1,4 +1,4 @@
-var version = '1.00';
+var version = '1.01';
 
 var log = function(msg) {
   // print log to console only when debug>0

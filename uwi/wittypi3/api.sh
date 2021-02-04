@@ -20,6 +20,17 @@ api_has_hardware()
 	fi
 }
 
+api_is_rev2()
+{
+  result=$(i2cget -y 1 0x69 0)
+  fwid=$(($result))
+  if [ $fwid -ge 35 ]; then
+    echo "yes"
+  else
+    echo "no"
+  fi
+}
+
 api_has_software()
 {
   if [[ -d "$wittypi3" ]]; then

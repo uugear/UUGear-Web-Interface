@@ -382,15 +382,16 @@ var set_default_state = function() {
 };
 
 var set_cut_power_delay = function() {
+	var maxv = is_rev2 ? 25 : 8;
 	inputValue('Power Cut Delay',
 	  'Please input the delay between shutdown and power cut:',
 	  parseFloat($('#cut_power_delay').text()),
 	  '0',
-	  '8.0',
+	  maxv + '.0',
 	  '0.1',
 	  'Seconds',
 	  function(val) {
-	  	if (val != null && val >= 0 && val <= 8) {
+	  	if (val != null && val >= 0 && val <= maxv) {
         sharedWS.addCompositeTask([
 		    { msg: 'wittypi3|api_set_cut_power_delay|' + parseInt(val*10), callback: function(event) {
 		    }},
@@ -399,7 +400,7 @@ var set_cut_power_delay = function() {
 	      }}
 		  ]);
 	    } else {
-	      msgBox('Power Cut Delay', 'The input value is invalid. It should be a value between 0 and 8.');	
+	      msgBox('Power Cut Delay', 'The input value is invalid. It should be a value between 0 and ' + maxv + '.');	
 	    }
 	  }
 	);

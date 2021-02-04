@@ -15,7 +15,7 @@
   <H1>UUGear Web Interface (UWI)</H1>
 	<p class='headline'>Available Devices: </p>
 	<div class='deviceButton rpi'><img class='thumb' src='rpi/img/thumb.png'></img>Raspberry Pi (GPIO)<div class='info'>Model: ------</div></div>
-	<div class='deviceButton wittypi3' style='display:none'><img class='thumb' src='wittypi3/img/thumb.png'></img>Witty Pi 3<div class='info'>RTC and power management (full sized or mini version)</div></div>
+	<div class='deviceButton wittypi3' style='display:none'><img class='thumb' src='wittypi3/img/thumb.png'></img><span class='title'>Witty Pi 3</span><div class='info'>RTC and power management (full sized or mini version)</div></div>
 	<div class='deviceButton zero2go' style='display:none'><img class='thumb' src='zero2go/img/thumb.png'></img>Zero2Go Omini<div class='info'>Multi-channel, wide input range power supply</div></div>
   </div>
   <script>
@@ -26,6 +26,12 @@
       }},
       { msg: 'wittypi3|api_has_hardware', callback: function(event) {
         $('.deviceButton.wittypi3').css("display", event.data != 'yes' ? 'none' : 'block');
+      }},
+      { msg: 'wittypi3|api_is_rev2', callback: function(event) {
+      	if (event.data == 'yes') {
+        	$('.deviceButton.wittypi3 .title').text('Witty Pi 3 (Rev2)');
+        	$('.deviceButton.wittypi3 .info').text('RTC and power management (reversion 2)');
+        }
       }},
       { msg: 'zero2go|api_has_hardware', callback: function(event) {
         $('.deviceButton.zero2go').css("display", event.data != 'yes' ? 'none' : 'block');

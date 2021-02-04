@@ -16,9 +16,9 @@
   </head>
   <body>
   <div class="content">
-    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> Witty Pi 3</H1>
+    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> Witty Pi 3 <span class='revInfo'></span></H1>
     <div class="section">
-      <img src="img/wittypi3.jpg" style="float:left; margin-right:10px;"></img>
+      <img class='thumbnail' src="img/wittypi3.jpg" style="float:left; margin-right:10px;"></img>
       <div class="overview" style="line-height: 43px;">
         <div style="float:right"><a title="Auto refresh on/off"><img id="refresh" src="../common/img/refresh_disabled.gif"></img></a></div>
         <div>Temperature: <span id="temperature"></span></div>
@@ -100,6 +100,7 @@
     </div>
   </div>
   <script>
+  var is_rev2 = false;
   $(document).ready(function(){
   	sharedWS.addTask('wittypi3|api_has_hardware', function(event) {
       if (event.data != 'yes') {
@@ -109,6 +110,12 @@
 	      	if (event.data != 'yes') {
 	      		missingSoftware();
 	      	} else {
+	      		sharedWS.addTask('wittypi3|api_is_rev2', function(event) {
+	      			is_rev2 = (event.data == 'yes');
+	      			$('title').text(is_rev2 ? 'Witty Pi 3 (Rev2)' : 'Witty Pi 3');
+	      			$('.revInfo').text(is_rev2 ? '(Rev2)' : '');
+	      			$('.thumbnail').attr('src', 'img/wittypi3r2.jpg');
+	      		});
 	      		refresh();
 	      	}
 	      });
