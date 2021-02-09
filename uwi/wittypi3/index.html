@@ -114,7 +114,7 @@
 	      			is_rev2 = (event.data == 'yes');
 	      			$('title').text(is_rev2 ? 'Witty Pi 3 (Rev2)' : 'Witty Pi 3');
 	      			$('.revInfo').text(is_rev2 ? '(Rev2)' : '');
-	      			$('.thumbnail').attr('src', 'img/wittypi3r2.jpg');
+	      			$('.thumbnail').attr('src', is_rev2 ? 'img/wittypi3r2.jpg' : 'img/wittypi3.jpg');
 	      		});
 	      		refresh();
 	      	}
