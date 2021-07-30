@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MEGA4</title>
+    <meta name="viewport" content="width=700">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery.timepicker.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../mega4/css/mega4.css">
+    <script type="text/javascript" src="../uwi.conf"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="../common/js/common.js"></script>
+    <script type="text/javascript" src="./js/mega4.js"></script>
+  </head>
+  <body>
+  <div class="content">
+    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> MEGA4 <span class='revInfo'></span></H1>
+    <div class="overview">
+      You can find your MEGA4 hub(s) below:
+      <div style="float:right"><a title="Auto refresh on/off"><img id="refresh" src="../common/img/refresh_disabled.gif"></img></a></div>
+    </div>
+    <div class="section">
+    </div>
+  </div>
+  <div class="shade"><img src="img/wait.gif" width="164" height="164" /></div>
+  <script>
+  $(document).ready(function(){
+  	sharedWS.addTask('mega4|api_has_hardware', function(event) {
+      if (event.data != 'yes') {
+      	missingMega4();
+      } else {
+      	sharedWS.addTask('mega4|api_has_software', function(event) {
+	      	if (event.data != 'yes') {
+	      		missingSoftware();
+	      	} else {
+	      	  refresh();
+	      	}
+	      });
+      }
+    });
+    var ref_int = null;
+    var ref_btn = $('#refresh');
+    ref_btn.click(function() {
+      if (ref_int == null) {
+        ref_int = setInterval(refresh, 1000);
+        ref_btn.attr('src', '../common/img/refresh.gif');
+      } else {
+        clearInterval(ref_int);
+        ref_btn.attr('src', '../common/img/refresh_disabled.gif');
+        ref_int = null;
+      }
+    });
+  });
+  footer();
+  </script>
+  </body>
+</html>

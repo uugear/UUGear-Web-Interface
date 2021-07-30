@@ -1,4 +1,4 @@
-var version = '1.01';
+var version = '1.02';
 
 var log = function(msg) {
   // print log to console only when debug>0
@@ -16,7 +16,7 @@ var footer = function() {
 	}
 	$("<td style='text-align:center;'>UUGear Web Interface V" + version + 
 	  "</td><td style='width:33%;text-align:right;'>&copy; Copyright " + (new Date()).getFullYear() + 
-	  " <a href='http://www.uugear.com/' target='_blank'>UUGear s.r.o.</a></td>").appendTo(tr);
+	  " <a href='http://www.uugear.com/' target='_blank'>Dun Cat B.V.</a></td>").appendTo(tr);
 };
 
 var msgBox = function(title, msg) {
@@ -131,7 +131,7 @@ SharedWebSocket.prototype = {
 		this.init();
 	},
 
-	addTask: function(msg, callback, canMerge) {
+	addTask: function(msg, callback, canMerge, noTimeout) {
 		if (canMerge) {
 			if (this.runningTask && this.runningTask.msg == msg) {
 				log('Merged to current task.');
@@ -147,7 +147,8 @@ SharedWebSocket.prototype = {
 		log('Add: ' + msg);
 		this.taskQueue.push({
 			'msg' : msg,
-			'callback' : callback	
+			'callback' : callback,
+			'noTimeout' : noTimeout
 		});
 		if (!this.runningTask) {
 			var self = this;
@@ -192,7 +193,7 @@ SharedWebSocket.prototype = {
 				self.runningTask = false;
 				// run the the next task
 				self.runTask();
-			}, response_timeout);
+			}, this.runningTask.noTimeout ? 2147483647 : response_timeout);
 			return true;
 		}
 	},
@@ -212,12 +213,12 @@ SharedWebSocket.prototype = {
 			var dlg = $('#ConnectionError');
 			if (dlg.length == 0 || !dlg.dialog('isOpen')) {
 				dlg.remove();
-				dlg = $("<div id='ConnectionError' title='Connection Error'>Can not connect to the device ...</div>");
+				dlg = $("<div id='ConnectionError' title='Connection Error'><p>Can not connect to the device ...</p><p>Please first check the configurations in \"uwi.conf\" file.</p></div>");
 				dlg.dialog({
 				autoOpen: true,
 				closeOnEscape: false,
-			  height: 100,
-			  width: 350,
+			  height: 140,
+			  width: 420,
 			  modal: true,
 			  buttons: {},
 			  show: 'fade',
@@ -244,11 +245,15 @@ SharedWebSocket.prototype = {
 					for (index = 0; index < self.runningTask.callback.length; index ++) {
 						var ev = Object.assign({}, event);
 						ev.data = d[index];
-						self.runningTask.callback[index](ev);	
+						if (self.runningTask.callback[index]) {
+						  self.runningTask.callback[index](ev);	
+					  }
 					}
 				} else {
 					// simple task
-					self.runningTask.callback(event);
+					if (self.runningTask.callback) {
+					  self.runningTask.callback(event);
+				  }
 				}
 				self.runningTask = false;
 			}

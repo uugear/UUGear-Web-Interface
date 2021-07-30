@@ -17,6 +17,7 @@
 	<div class='deviceButton rpi'><img class='thumb' src='rpi/img/thumb.png'></img>Raspberry Pi (GPIO)<div class='info'>Model: ------</div></div>
 	<div class='deviceButton wittypi3' style='display:none'><img class='thumb' src='wittypi3/img/thumb.png'></img><span class='title'>Witty Pi 3</span><div class='info'>RTC and power management (full sized or mini version)</div></div>
 	<div class='deviceButton zero2go' style='display:none'><img class='thumb' src='zero2go/img/thumb.png'></img>Zero2Go Omini<div class='info'>Multi-channel, wide input range power supply</div></div>
+	<div class='deviceButton mega4' style='display:none'><img class='thumb' src='mega4/img/thumb.png'></img>MEGA4<div class='info'>4-Port USB 3.1 PPPS (Per-Port Power Switching) Hub</div></div>
   </div>
   <script>
   $(document).ready(function(){
@@ -35,6 +36,9 @@
       }},
       { msg: 'zero2go|api_has_hardware', callback: function(event) {
         $('.deviceButton.zero2go').css("display", event.data != 'yes' ? 'none' : 'block');
+      }},
+      { msg: 'mega4|api_has_hardware', callback: function(event) {
+        $('.deviceButton.mega4').css("display", event.data != 'yes' ? 'none' : 'block');
       }}
     ]);
     
@@ -46,6 +50,9 @@
     });
     $('.zero2go').click(function(){
     	window.open('zero2go', '_self');
+    });
+    $('.mega4').click(function(){
+    	window.open('mega4', '_self');
     });
   });
   footer();
