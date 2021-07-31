@@ -62,6 +62,13 @@ var refresh = function() {
           var device = devices[i].split(',');
           loadDevice(device);
         }
+        $('.upstream').each(function() {
+          if (event.data.indexOf(this.innerText + ',') === -1) {
+            this.innerText = 'to RPi';
+          } else {
+            this.innerText = 'to ' + this.innerText;
+          }
+        });
       }
       for (let i = 0; i < devices.length; i ++) {
         var device = devices[i].split(',');
@@ -69,22 +76,8 @@ var refresh = function() {
         if (p !== -1) {
           var usDev = device[0].slice(0, p);
           var usPort = device[0].slice(p + 1);
-          $('#' + usDev.replace('.', '\\.')).find('.k' + usPort).addClass('switch_disabled');
+          $('#' + usDev.replaceAll('.', '\\.')).find('.k' + usPort).addClass('switch_disabled');
         }
-      }
-    }
-  });
-};
-
-
-var loadDevices = function() {
-  $('.device').remove();
-  sharedWS.addTask('mega4|api_get_devices_info', function(event) {
-    if (event.data != '') {
-      var devices = event.data.split(' ');
-      for (let i = devices.length - 1; i >= 0; i --) {
-        var device = devices[i].split(',');
-        loadDevice(device);
       }
     }
   });
@@ -94,7 +87,7 @@ var loadDevices = function() {
 var loadDevice = function(device) {
   var dev = $('<div id="' + device[0] + '" class="device"></div>').appendTo('.section');
   var board = $('<div class="board"><img src="img/board.jpg" /></div>').appendTo(dev);
-  var dev_name = $('<div class="dev_name"><div>Hub:</div><div>' + device[0] + '</div></div>').appendTo(dev);
+  var dev_name = $('<div class="dev_name"><div>Hub:</div><span>' + device[0] + '</span></div>').appendTo(dev);  
   var d6 = $('<div class="d6 led red"></div>').appendTo(dev);
   var d11 = $('<div class="d11 led white"></div>').appendTo(dev);
   var d1 = $('<div class="d1 led blue"></div>').appendTo(dev);
@@ -108,8 +101,12 @@ var loadDevice = function(device) {
   var k2 = $('<div class="k2 switch"></div>').appendTo(dev);
   var k3 = $('<div class="k3 switch"></div>').appendTo(dev);
   var k4 = $('<div class="k4 switch"></div>').appendTo(dev);
-  var conn = (device[0].indexOf('.') === -1) ? 'to RPi' : 'to ' + device[0].slice(0, device[0].lastIndexOf('.'));
-  var us = $('<div class="upstream">' + conn + '</div>').appendTo(dev);
+  var parent_dev = device[0].slice(0, device[0].lastIndexOf('.'));
+  var us = $('<div class="upstream">' + parent_dev + '</div>').appendTo(dev);
+  
+  dev_name.textfill({
+    maxFontPixels: 21
+  });  
   
   k1.click(function() {
     if (!k1.hasClass('switch_disabled')) {
