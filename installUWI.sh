@@ -84,23 +84,38 @@ fi
 
 # install UUGear Web Interface (UWI)
 if [ $ERR -eq 0 ]; then
-  echo '>>> Install UWI'
+  echo '>>> Install/update UWI'
+  wget http://www.uugear.com/repo/UWI/LATEST -O uwi.zip || ((ERR++))
+  unzip uwi.zip -d uwi.latest || ((ERR++))
+  cd uwi.latest
+  chmod +x messanger.sh
+  chmod +x websocketd
+  sed -e "s#/home/pi/uwi#$DIR#g" uwi >/etc/init.d/uwi
+  chmod +x /etc/init.d/uwi
+  update-rc.d uwi defaults || ((ERR++))
+  touch uwi.log
+  cd ..
+  chown -R $SUDO_USER:$(id -g -n $SUDO_USER) uwi.latest || ((ERR++))
+  sleep 2
+  rm uwi.zip
+  
   if [ -d "uwi" ]; then
-    echo 'Seems UUGear Web Interface (UWI) is installed already, skip this step.'
+    cur_ver=$(cat uwi/common/js/common.js | grep 'var version =' | sed "s/var version = '//" | sed "s/';//")
+    latest_ver=$(cat uwi.latest/common/js/common.js | grep 'var version =' | sed "s/var version = '//" | sed "s/';//")
+    echo "Current UWI version=${cur_ver}, latest UWI version=${latest_ver}"
+    if (( $(echo "$latest_ver $cur_ver" | awk '{print ($1 > $2)}') )); then
+      echo "UUGear Web Interface (UWI) is installed but there is a newer version now."
+      postfix=$(tr -dc A-Z0-9 </dev/urandom | head -c 6)
+      echo "The current version will be moved to 'uwi_${postfix}', please delete it after review."
+      echo "The latest version will be installed to 'uwi' directory."
+      mv uwi "uwi_${postfix}"
+      mv uwi.latest uwi
+    else
+      echo "UUGear Web Interface (UWI) is installed and there is no newer version now."
+      rm -R uwi.latest
+    fi
   else
-    wget http://www.uugear.com/repo/UWI/LATEST -O uwi.zip || ((ERR++))
-    unzip uwi.zip -d uwi || ((ERR++))
-    cd uwi
-    chmod +x messanger.sh
-    chmod +x websocketd
-    sed -e "s#/home/pi/uwi#$DIR#g" uwi >/etc/init.d/uwi
-    chmod +x /etc/init.d/uwi
-    update-rc.d uwi defaults || ((ERR++))
-    touch uwi.log
-    cd ..
-    chown -R $SUDO_USER:$(id -g -n $SUDO_USER) uwi || ((ERR++))
-    sleep 2
-    rm uwi.zip
+    mv uwi.latest uwi
   fi
 fi
 
