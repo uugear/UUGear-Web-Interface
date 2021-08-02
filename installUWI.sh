@@ -105,7 +105,7 @@ if [ $ERR -eq 0 ]; then
     echo "Current UWI version=${cur_ver}, latest UWI version=${latest_ver}"
     if (( $(echo "$latest_ver $cur_ver" | awk '{print ($1 > $2)}') )); then
       echo "UUGear Web Interface (UWI) is installed but there is a newer version now."
-      postfix=$(tr -dc A-Z0-9 </dev/urandom | head -c 6)
+      postfix=$(tr -dc A-Z0-9 </dev/urandom | head -c 3)
       echo "The current version will be moved to 'uwi_${postfix}', please delete it after review."
       echo "The latest version will be installed to 'uwi' directory."
       mv uwi "uwi_${postfix}"
