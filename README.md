@@ -9,10 +9,10 @@ Currently UUGear Web Interface supports three devices:
 
 ## How to install
 You can install UWI with this single command line:
-> curl http://www.uugear.com/repo/UWI/installUWI.sh | sudo bash
+> curl https://www.uugear.com/repo/UWI/installUWI.sh | sudo bash
 
 Alternatively, you can download the install script and run it.
-> wget http://www.uugear.com/repo/UWI/installUWI.sh
+> wget https://www.uugear.com/repo/UWI/installUWI.sh
 
 > sudo sh installUWI.sh
 
