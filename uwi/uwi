@@ -15,7 +15,7 @@ case "$1" in
   start)
     echo "Starting UWI server..."
     . /home/pi/uwi/uwi.conf
-    /home/pi/uwi/websocketd --port=$port --staticdir=/home/pi/uwi /home/pi/uwi/messanger.sh &
+    /home/pi/uwi/websocketd --address=$host --port=$port --staticdir=/home/pi/uwi /home/pi/uwi/messanger.sh &
     uwiPid=$(echo $!)
     logger "UWI server is started with pid=$uwiPid"
     echo $uwiPid > /var/run/uwi.pid
