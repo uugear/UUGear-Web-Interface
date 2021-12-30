@@ -6,6 +6,7 @@ Currently UUGear Web Interface supports three devices:
 - Raspberry Pi (GPIO): view and control the GPIO pins on your Raspberry Pi.
 - Witty Pi 3: monitor and manage your Witty Pi 3 or Witty Pi 3 Mini.
 - Zero2Go Omini: monitor and manage your Zero2Go Omini.
+- MEGA4: 4-PORT USB 3.1 PPPS HUB FOR RASPBERRY PI 4B
 
 ## How to install
 You can install UWI with this single command line:
