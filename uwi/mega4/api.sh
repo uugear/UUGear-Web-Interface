@@ -7,8 +7,8 @@ my_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 api_has_hardware()
 {
-  result=$(lsusb | grep "ID 2109:0817 VIA Labs, Inc.")
-  if (( ${#result} >= 0 )); then
+  result=$(lsusb | grep "ID 2109:2817 VIA Labs, Inc.")
+  if [[ ${#result} -gt 0 ]]; then
 		echo "yes"
 	else
 		echo "no"
