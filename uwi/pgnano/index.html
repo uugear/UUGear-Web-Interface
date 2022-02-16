@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PiGear Nano</title>
+    <meta name="viewport" content="width=700">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery.timepicker.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../pgnano/css/pgnano.css">
+    <script type="text/javascript" src="../uwi.conf"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.textfill.js"></script>
+    <script type="text/javascript" src="../common/js/common.js"></script>
+    <script type="text/javascript" src="./js/pgnano.js"></script>
+  </head>
+  <body>
+  <div class="content">
+    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> PiGear Nano</H1>
+    <div class="overview">
+      <div style="float:right;margin-right:20px; margin-top:20px"><a title="Auto refresh on/off"><img id="refresh" src="../common/img/refresh_disabled.gif"></img></a></div>
+    </div>
+    <div class="section">
+    <table class='connector_labels up'>
+      <tr>
+        <td class='label gnd'>GND</td><td class='label vcc'>5V</td><td class='label'>1-Wire</td><td class='label do'>DO-1</td>
+        <td class='label do'>DO-2</td><td class='label do'>DO-3</td><td class='label do'>DO-4</td><td class='label dio'>DIO-1</td>
+        <td class='label dio'>DIO-2</td><td class='label dio'>DIO-3</td><td class='label dio'>DIO-4</td><td class='label di'>DI-1</td>
+        <td class='label di'>DI-2</td><td class='label di'>DI-3</td><td class='label di'>DI-4</td><td class='label gnd'>GND</td>
+      </tr>
+    </table>
+    <table class='leds'>
+      <tr><td class='led red' title='Click to turn on red LED'></td></tr>
+      <tr><td class='led yellow' title='Click to turn on yellow LED'></td></tr>
+      <tr><td class='led green'></td></tr>
+    </table>
+	  <table class='cable_connector'>
+      <tr>
+        <td colspan='16' class='space'></td>
+      </tr>
+      <tr>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+      </tr>
+      <tr>
+        <td class='hole'>1</td><td class='hole'>2</td><td class='hole'>3</td><td class='hole do'>4</td>
+        <td class='hole do'>5</td><td class='hole do'>6</td><td class='hole do'>7</td><td class='hole dio'>8</td>
+        <td class='hole dio'>9</td><td class='hole dio'>10</td><td class='hole dio'>11</td><td class='hole di'>12</td>
+        <td class='hole di'>13</td><td class='hole di'>14</td><td class='hole di'>15</td><td class='hole'>16</td>
+      </tr>
+      <tr>
+        <td colspan='16' class='space'></td>
+      </tr>
+      <tr>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+        <td class='btn'></td><td class='btn'></td><td class='btn'></td><td class='btn'></td>
+      </tr>
+      <tr>
+        <td class='hole adc'>17</td><td class='hole adc'>18</td><td class='hole adc'>19</td><td class='hole adc'>20</td>
+        <td class='hole'>21</td><td class='hole'>22</td><td class='hole'>23</td><td class='hole'>24</td>
+        <td class='hole'>25</td><td class='hole'>26</td><td class='hole'>27</td><td class='hole'>28</td>
+        <td class='hole'>29</td><td class='hole'>30</td><td class='hole'>31</td><td class='hole'>32</td>
+      </tr>
+	  </table>
+    <img class='buzzer' src='img/buzzer.png' title='Click to turn on buzzer'></img>
+    <table class='connector_labels down'>
+      <tr>
+        <td class='label adc'>ADC-1</td><td class='label adc'>ADC-2</td><td class='label adc'>ADC-3</td><td class='label adc'>ADC-4</td>
+        <td class='label gnd'>GND</td><td class='label can'>CAN-L</td><td class='label can'>CAN-H</td><td class='label rs485_1'>RS485-B1</td>
+        <td class='label rs485_1'>RS485-A1</td><td class='label rs485_2'>RS485-B2</td><td class='label rs485_2'>RS485-A2</td><td class='label rs232_1'>RS232-TX1</td>
+        <td class='label rs232_1'>RS232-RX1</td><td class='label gnd'>GND<td class='label rs232_2'>RS232-TX2</td><td class='label rs232_2'>RS232-RX2</td>
+      </tr>
+    </table>
+    <div id="tabs">
+      <ul>
+        <li><a href="#rtc">RTC</a></li>
+        <li><a href="#do">DO</a></li>
+        <li><a href="#dio">DIO</a></li>
+        <li><a href="#di">DI</a></li>
+        <li><a href="#adc">ADC</a></li>
+      </ul>
+      <div id="rtc">
+        <div class='overview' id='systime'>SYS Time: </div>
+        <div class='overview' id='rtctime'>RTC Time: </div>
+        <div class="row">
+          <button id="sys_to_rtc">SYS Time &#9658; RTC Time</button>
+          <button id="rtc_to_sys">SYS Time &#9668; RTC Time</button>
+          <button id="network_sync">Network Time Sync</button>
+          <div>&nbsp;</div>
+          <fieldset>
+            <legend>Alarm or Watchdog: </legend>
+            <label for="none">None</label>
+            <input type="radio" name="alarm_watchdog" id="none">
+            <label for="alarm">Alarm</label>
+            <input type="radio" name="alarm_watchdog" id="alarm">
+            <label for="watchdog">Watchdog</label>
+            <input type="radio" name="alarm_watchdog" id="watchdog">
+            <div id="alarm_details">
+              <span id="alarm_time">????-??-?? ??:??:??</span>
+              <button id="set_alarm">Change</button>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div id="do">
+        <table class="datagrid dout">
+          <tr class="header"><td>DO-1</td><td>DO-2</td><td>DO-3</td><td>DO-4</td></tr>
+          <tr>
+            <td id="do1" class="clickable" title="Click to change value">0</td>
+            <td id="do2" class="clickable" title="Click to change value">0</td>
+            <td id="do3" class="clickable" title="Click to change value">0</td>
+            <td id="do4" class="clickable" title="Click to change value">0</td>
+          </tr>
+        </table>
+      </div>
+      <div id="dio">
+        <table class="datagrid dinout">
+          <tr class="header"><td>DIO-1</td><td>DIO-2</td><td>DIO-3</td><td>DIO-4</td></tr>
+          <tr>
+            <td colspan=4>
+              <select id="dio-modes">
+                <option value="ININININ">IN - IN - IN - IN</option>
+                <option value="ININOUTOUT">IN - IN - OUT - OUT</option>
+                <option value="OUTOUTININ">OUT - OUT - IN - IN</option>
+                <option value="OUTOUTOUTOUT">OUT - OUT - OUT - OUT</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td id="dio1">0</td>
+            <td id="dio2">0</td>
+            <td id="dio3">0</td>
+            <td id="dio4">0</td>
+          </tr>
+        </table>
+      </div>
+      <div id="di">
+        <table class="datagrid din">
+          <tr class="header"><td>DI-1</td><td>DI-2</td><td>DI-3</td><td>DI-4</td></tr>
+          <tr>
+            <td id="di1">0</td>
+            <td id="di2">0</td>
+            <td id="di3">0</td>
+            <td id="di4">0</td>
+          </tr>
+        </table>
+      </div>
+      <div id="adc">
+        <div id="adc_conf">
+          SPS=
+          <select id="sps">
+            <option value="240">240</option>
+            <option value="60">60</option>
+            <option value="15">15</option>
+            <option value="3">3</option>
+          </select>
+          &nbsp;&nbsp;&nbsp;
+          PGA=
+          <select id="pga">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+        <table class="datagrid adc">
+          <tr class="header"><td> </td><td>ADC-1</td><td>ADC-2</td><td>ADC-3</td><td>ADC-4</td></tr>
+          <tr>
+            <td>Code</td>
+            <td id="adc_c1">0</td>
+            <td id="adc_c2">0</td>
+            <td id="adc_c3">0</td>
+            <td id="adc_c4">0</td>
+          </tr>
+          <tr>
+            <td>Voltage</td>
+            <td id="adc_v1">0.000000</td>
+            <td id="adc_v2">0.000000</td>
+            <td id="adc_v3">0.000000</td>
+            <td id="adc_v4">0.000000</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+  <script>
+  $(document).ready(function(){
+    $("#tabs").tabs({
+      activate: function (event, ui) {
+        curTab = ui.newPanel[0].id;
+        refresh_tab_content();
+      }
+    });
+    $('#dio-modes').selectmenu({width:320}).on('selectmenuchange', function(ul, item) {
+       set_dio_modes(item.item.value);
+    });
+    $('#sps').selectmenu({width:'auto'}).on('selectmenuchange', function(ul, item) {
+       set_adc_sps(item.item.value);
+    });
+    $('#pga').selectmenu({width:'auto'}).on('selectmenuchange', function(ul, item) {
+       set_adc_pga(item.item.value);
+    });
+  	sharedWS.addTask('pgnano|api_has_hardware', function(event) {
+      if (event.data != 'yes') {
+      	missingPiGearNano();
+      } else {
+      	sharedWS.addTask('pgnano|api_has_software', function(event) {
+	      	if (event.data != 'yes') {
+	      		missingSoftware();
+	      	} else {
+	      	  refresh();
+	      	}
+	      });
+      }
+    });
+    var ref_int = null;
+    var ref_btn = $('#refresh');
+    ref_btn.click(function() {
+      if (ref_int == null) {
+        ref_int = setInterval(refresh, 1000);
+        ref_btn.attr('src', '../common/img/refresh.gif');
+      } else {
+        clearInterval(ref_int);
+        ref_btn.attr('src', '../common/img/refresh_disabled.gif');
+        ref_int = null;
+      }
+    });
+    
+    var buzzer = $('.buzzer');
+    buzzer.click(function() {
+      if (buzzer.hasClass('on')) {
+        sharedWS.addTask('pgnano|api_buzzer_off', function(event) {
+          buzzer.removeClass('on');
+          buzzer.attr('src', 'img/buzzer.png');
+          buzzer.attr('title', 'Click to turn on buzzer');
+        });     
+      } else {
+        sharedWS.addTask('pgnano|api_buzzer_on', function(event) {
+          buzzer.addClass('on');
+          buzzer.attr('src', 'img/buzzer_on.png');
+          buzzer.attr('title', 'Click to turn off buzzer');
+        });
+      }
+    });
+    
+    var redLed = $('.led.red');
+    var yellowLed = $('.led.yellow');
+    redLed.click(function() {
+      if (redLed.hasClass('on')) {
+        sharedWS.addTask('pgnano|api_red_led_off', function(event) {
+          redLed.removeClass('on');
+          redLed.attr('title', 'Click to turn on red LED');
+          yellowLed.addClass('on');
+          yellowLed.attr('title', 'Click to turn off yellow LED');
+        });
+      } else {
+        sharedWS.addTask('pgnano|api_red_led_on', function(event) {
+          redLed.addClass('on');
+          redLed.attr('title', 'Click to turn off red LED');
+          yellowLed.removeClass('on');
+          yellowLed.attr('title', 'Click to turn on yellow LED');
+        });
+      }
+    });
+    yellowLed.click(function() {
+      if (yellowLed.hasClass('on')) {
+        sharedWS.addTask('pgnano|api_red_led_on', function(event) {
+          redLed.addClass('on');
+          redLed.attr('title', 'Click to turn off red LED');
+          yellowLed.removeClass('on');
+          yellowLed.attr('title', 'Click to turn on yellow LED');
+        });
+      } else {
+        sharedWS.addTask('pgnano|api_red_led_off', function(event) {
+          redLed.removeClass('on');
+          redLed.attr('title', 'Click to turn on red LED');
+          yellowLed.addClass('on');
+          yellowLed.attr('title', 'Click to turn off yellow LED');
+        });
+      }
+    });
+    
+    $('.do').click(function(){$('a[href="#do"]').click();});
+    $('.dio').click(function(){$('a[href="#dio"]').click();});
+    $('.di').click(function(){$('a[href="#di"]').click();});
+    $('.adc').click(function(){$('a[href="#adc"]').click();});
+    
+    $('#sys_to_rtc').click(sys_to_rtc);
+    $('#rtc_to_sys').click(rtc_to_sys);
+    $('#network_sync').click(network_sync);
+    
+    $("input[name='alarm_watchdog']").checkboxradio().click(function(){
+      var selId = $(this).attr("id");
+      $('#alarm_details').css('display', selId == 'alarm' ? 'block' : 'none');
+      if (selId == 'alarm') {
+        turn_off_watchdog();
+      } else if (selId == 'watchdog') {
+        turn_on_watchdog();
+      } else {
+        turn_off_watchdog();
+        save_alarm('');
+      }  
+    });
+    
+    $('#set_alarm').click(set_alarm);
+    
+    $('#do1').click(function(){ toggle_do(1); });
+    $('#do2').click(function(){ toggle_do(2); });
+    $('#do3').click(function(){ toggle_do(3); });
+    $('#do4').click(function(){ toggle_do(4); });
+    
+    $('#dio1').click(function(){ toggle_dio(1); });
+    $('#dio2').click(function(){ toggle_dio(2); });
+    $('#dio3').click(function(){ toggle_dio(3); });
+    $('#dio4').click(function(){ toggle_dio(4); });
+    
+  });
+  footer();
+  </script>
+  </body>
+</html>

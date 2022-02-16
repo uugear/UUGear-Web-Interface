@@ -37,8 +37,7 @@ for ((j=0; j<$msg_count; j++)); do
         func=$(printf %q "${fields[1]}")
         # the function must exist in specified file
         if grep -q "$func()" "$cmd"; then
-          #cmd=". $cmd; . $my_dir/common/common.sh; single_line $func"
-          cmd=". $cmd; . $my_dir/common/common.sh; $func"
+          cmd=". $cmd; . $my_dir/common/common.sh; . $my_dir/common/gpio-util.sh; $func"
           for ((i = 2 ; i < $count ; i++)); do
             param=$(printf %q "${fields[$i]}")
             cmd="$cmd $param"
@@ -46,6 +45,8 @@ for ((j=0; j<$msg_count; j++)); do
         else
           log "The function $func() doesn't exist in file $cmd"
         fi
+        log "Enter directory ${!dir}"
+        cd ${!dir}
         log "Execute: bash -c \"$cmd\""
         result=$(bash -c "$cmd")
         # concatenate results with \n

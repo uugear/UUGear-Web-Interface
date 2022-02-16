@@ -1,0 +1,281 @@
+#tabs ul li {
+  border-radius: 8px 8px 0px 0px;  
+}
+
+#tabs ul li.ui-tabs-active {
+  background-color: #fff;
+}
+
+#tabs ul li a {
+  font-weight: bold;
+}
+
+#tabs ul li.ui-tabs-active a {
+  color: #008845;
+}
+
+#sys_to_rtc, #rtc_to_sys, #network_sync {
+  font-size: 13px;
+  margin: 10px; 5px;
+}
+
+.cable_connector {
+  background-color: #60A479;
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+
+.connector_labels {
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+
+.label {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #FFF;
+  width: 26px;
+  border: 1px solid #555;
+  color: #444;
+  text-align: left;
+}
+
+.down .label{
+  text-align: right;
+}
+
+.label.gnd {
+  background-color: #444;
+  color: #FFF;
+  border-color: #444;
+}
+
+.label.vcc {
+  background-color: #E00;
+  color: #FFF;
+  border-color: #E00;
+}
+
+.label.do {
+  border-color: #b00;
+  color: #b00;
+}
+
+.label.dio {
+  border-color: #06E;
+  color: #06E;
+}
+
+.label.di {
+  border-color: #285;
+  color: #285;
+}
+
+.label.adc {
+  border-color: #D71;
+  color: #D71;
+}
+
+.label.can {
+  border-color: #A3A;
+  color: #A3A;
+}
+
+.label.rs485_1 {
+  border-color: #0BF;
+  color: #0BF;
+}
+
+.label.rs485_2 {
+  border-color: #19F;
+  color: #19F;
+}
+
+.label.rs232_1 {
+  border-color: #2BA;
+  color: #2BA;
+}
+
+.label.rs232_2 {
+  border-color: #682;
+  color: #682;
+}
+
+
+
+.space {
+  height: 5px;
+}
+
+.btn {
+  background-color: #ED6B27;
+  width: 26px;
+  height: 3px;
+  border-top: 5px solid #E89E65;
+  border-bottom: 5px solid #E89E65;
+  margin-top: 5px;
+}
+
+.hole {
+  background-color: #444444; 
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.leds {
+  background-color: #444;
+  border-collapse: separate;
+  border-spacing: 10px;
+  float: right;
+  margin-right: 0px;
+}
+
+.led {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.led.red {
+  background-color: #A00;
+  cursor:pointer;
+}
+
+.led.red.on {
+  background-color: #F33;
+  box-shadow: 0px 0px 15px 5px rgba(255,51,51,0.8);
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(255,51,51,0.8);
+  -moz-box-shadow: 0px 0px 15px 5px rgba(255,51,51,0.8);
+}
+
+.led.yellow {
+  background-color: #C80;
+  cursor:pointer;
+}
+
+.led.yellow.on {
+  background-color: #FD0;
+  box-shadow: 0px 0px 15px 5px rgba(255,221,0,0.8);
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(255,221,0,0.8);
+  -moz-box-shadow: 0px 0px 15px 5px rgba(255,221,0,0.8);
+}
+
+.led.green {
+  background-color: #080;
+}
+
+.led.green.on {
+  background-color: #7F0;
+  box-shadow: 0px 0px 15px 5px rgba(119,255,0,0.8);
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(119,255,0,0.8);
+  -moz-box-shadow: 0px 0px 15px 5px rgba(119,255,0,0.8);
+}
+
+.buzzer {
+  display: block;
+  float:right;
+  margin-right: 0px;
+  margin-top: 10px;
+  cursor:pointer;
+}
+
+.do {
+  cursor:pointer;
+}
+
+.dio {
+  cursor:pointer;
+}
+
+.di {
+  cursor:pointer;
+}
+
+.adc {
+  cursor:pointer;
+}
+
+#set_alarm {
+  font-size: 13px;
+  padding: 7px;
+}
+
+#alarm_time {
+  border-bottom: 1px solid #ccc;
+  font-size: 18px;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.datagrid, .datagrid td {
+  border-collapse: collapse;
+}
+
+.datagrid td {
+  padding: 10px 20px;
+  border: 2px solid #666;
+  text-align: center;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 16px;
+  color: #333;
+}
+
+.datagrid .header td {
+  color: #fff;
+}
+
+.clickable {
+  cursor: pointer;  
+}
+
+.datagrid.dout td {
+  border-color: #b00;
+  color: #b00;
+}
+
+.datagrid.dout td.clickable:hover {
+  color: #fff;
+  background-color: #b00;
+}
+
+.datagrid.din td {
+  border-color: #285;
+  color: #285;
+}
+
+#dio-modes-button .ui-selectmenu-text {
+  text-align: center;  
+}
+
+.datagrid.dinout td {
+  border-color: #06e;
+  color: #06e;
+}
+
+.datagrid.dinout td.clickable:hover {
+  color: #fff;
+  background-color: #06e;
+}
+
+#adc_conf {
+  margin-bottom: 10px;
+}
+
+.datagrid.adc td {
+  border-color: #d71;
+  color: #d71;
+}
