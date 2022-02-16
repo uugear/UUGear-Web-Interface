@@ -3,10 +3,10 @@ UUGear Web Interface (UWI) is an very lightweight web server that allows you to 
 
 ## Supported Devices
 Currently UUGear Web Interface supports these devices:
-- Raspberry Pi (GPIO): view and control the GPIO pins on your Raspberry Pi.
-- Witty Pi 3: monitor and manage your Witty Pi 3 or Witty Pi 3 Mini.
-- Zero2Go Omini: monitor and manage your Zero2Go Omini.
-- MEGA4: 4-PORT USB 3.1 PPPS HUB FOR RASPBERRY PI 4B.
+- Raspberry Pi (GPIO): dummy device for viewing and controling the GPIO pins on your Raspberry Pi.
+- Witty Pi 3 (Full-sized or Mini): realtime clock and power management for Raspberry Pi.
+- Zero2Go Omini: wide input range, multi-channel power supply for Raspberry Pi.
+- MEGA4: 4-Port USB 3.1 PPPS Hub for Raspberry Pi 4B.
 - PiGear Nano: Nano–ITX carrier board for Raspberry Pi Compute Module 4. 
 
 ## How to install
