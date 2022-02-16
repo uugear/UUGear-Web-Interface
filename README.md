@@ -18,6 +18,8 @@ Alternatively, you can download the install script and run it.
 
 > sudo sh installUWI.sh
 
-If you install software for Witty Pi 3 (Mini) or Zero2Go Omini, their install script will also install UWI for you.
+If you install software for Witty Pi 3 (Mini), Zero2Go Omini or PiGear Nano, their install script will also install UWI for you.
 
 After installation, you will need to reboot your Raspberry Pi, and then you can access your devices via http://raspberrypi:8000/
+
+Remarks: if your Raspberry Pi is not using the "raspberrypi" host name, or this hostname is not resolvable in your network enviroment, you need to edit the "uwi.conf" file and replace "reaspberrypi" with the actual host name or IP address of your Raspberry Pi.
