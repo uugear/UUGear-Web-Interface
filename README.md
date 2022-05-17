@@ -22,4 +22,5 @@ If you install software for Witty Pi 3 (Mini), Zero2Go Omini or PiGear Nano, the
 
 After installation, you will need to reboot your Raspberry Pi, and then you can access your devices via http://raspberrypi:8000/
 
-Remarks: if your Raspberry Pi is not using the "raspberrypi" host name, or this hostname is not resolvable in your network enviroment, you need to edit the "uwi.conf" file and replace "reaspberrypi" with the actual host name or IP address of your Raspberry Pi.
+Remarks: if your Raspberry Pi is not using the "raspberrypi" host name, or this hostname is not resolvable in your network enviroment, you need to edit the "uwi.conf" file and replace "reaspberrypi" with the actual host name or IP address of your Raspberry Pi. You can also run the diagnose.sh script and let it configure the host name for you.
+> ./diagnose.sh
