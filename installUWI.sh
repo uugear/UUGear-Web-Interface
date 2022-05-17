@@ -70,6 +70,7 @@ if [ $ERR -eq 0 ]; then
   chmod +x messanger.sh
   chmod +x websocketd
   chmod +x uwi.sh
+  chmod +x diagnose.sh
   sed -e "s#/home/pi/uwi#$DIR#g" uwi >/etc/init.d/uwi
   chmod +x /etc/init.d/uwi
   update-rc.d uwi defaults || ((ERR++))
@@ -104,6 +105,7 @@ echo
 if [ $ERR -eq 0 ]; then
   echo '>>> All done. Please reboot your Pi to have UWI server running :-)'
   echo 'With default settings, the web interface URL is http://raspberrypi:8000/'
+  echo "If you have problem accessing UWI from another device, please run the 'diagnose.sh' script in 'uwi' directory."
 else
   echo '>>> Something went wrong. Please check the messages above :-('
 fi

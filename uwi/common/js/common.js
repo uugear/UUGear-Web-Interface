@@ -1,4 +1,4 @@
-var version = '1.10';
+var version = '1.20';
 
 var log = function(msg) {
   // print log to console only when debug>0
@@ -42,7 +42,7 @@ var chooseValue = function(title, msg, values, labels, selIndex, callback) {
     for (i = 0; i < values.length; i ++) {
       $("<option value='" + values[i] + "'" + (selIndex == i ? " selected='selected'" : "") + ">" + labels[i] + "</option>").appendTo(list);	
     }
-    var selVal;
+    var selVal = values[selIndex];
     dlg.dialog({
       resizable: false,
       height: "auto",

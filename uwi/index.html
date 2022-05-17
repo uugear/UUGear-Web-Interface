@@ -16,6 +16,7 @@
 	<p class='headline'>Available Devices: </p>
 	<div class='deviceButton rpi' style='display:none'><img class='thumb' src='rpi/img/thumb.png'></img>Raspberry Pi (GPIO)<div class='info'>Model: ------</div></div>
 	<div class='deviceButton wittypi3' style='display:none'><img class='thumb' src='wittypi3/img/thumb.png'></img><span class='title'>Witty Pi 3</span><div class='info'>RTC and power management (full sized or mini version)</div></div>
+  <div class='deviceButton wittypi4' style='display:none'><img class='thumb' src='wittypi4/img/thumb.png'></img><span class='title'>Witty Pi 4</span><div class='info'>Realtime clock and power management</div></div>
 	<div class='deviceButton zero2go' style='display:none'><img class='thumb' src='zero2go/img/thumb.png'></img>Zero2Go Omini<div class='info'>Multi-channel, wide input range power supply</div></div>
 	<div class='deviceButton mega4' style='display:none'><img class='thumb' src='mega4/img/thumb.png'></img>MEGA4<div class='info'>4-Port USB 3.1 PPPS (Per-Port Power Switching) Hub</div></div>
 	<div class='deviceButton pgnano' style='display:none'><img class='thumb' src='pgnano/img/thumb.png'></img>PiGear Nano<div class='info'>Nano-ITX Raspberry Pi Compute Module 4 Carrier Board</div></div>
@@ -38,6 +39,9 @@
         	$('.deviceButton.wittypi3 .info').text('RTC and power management (reversion 2)');
         }
       }},
+      { msg: 'wittypi4|api_has_hardware', callback: function(event) {
+        $('.deviceButton.wittypi4').css("display", event.data != 'yes' ? 'none' : 'block');
+      }},
       { msg: 'zero2go|api_has_hardware', callback: function(event) {
         $('.deviceButton.zero2go').css("display", event.data != 'yes' ? 'none' : 'block');
       }},
@@ -57,6 +61,9 @@
     });
     $('.wittypi3').click(function(){
     	window.open('wittypi3', '_self');
+    });
+    $('.wittypi4').click(function(){
+    	window.open('wittypi4', '_self');
     });
     $('.zero2go').click(function(){
     	window.open('zero2go', '_self');
