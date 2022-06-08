@@ -8,6 +8,7 @@ Currently UUGear Web Interface supports these devices:
 - Zero2Go Omini: wide input range, multi-channel power supply for Raspberry Pi.
 - MEGA4: 4-Port USB 3.1 PPPS Hub for Raspberry Pi 4B.
 - PiGear Nano: Nano–ITX carrier board for Raspberry Pi Compute Module 4. 
+- Witty Pi 4: realtime clock and power management for Raspberry Pi.
 
 ## How to install
 You can install UWI with this single command line:
