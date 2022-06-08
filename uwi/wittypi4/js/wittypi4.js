@@ -416,23 +416,27 @@ var set_cut_power_delay = function() {
 };
 
 var set_pulsing_interval = function() {
-  var labels = ['1 second', '2 seconds', '4 seconds', '8 seconds'];
-	var selIndex = labels.indexOf($('#pulsing_interval').text());
-	chooseValue('Pulsing Interval',
-	  'Please choose the pulsing interval when the device is sleeping.<br/>This will affect the LED blinking and dummy load (if enabled).',
-	  [6, 7, 8, 9],
-	  labels,
-	  selIndex,
+	inputValue('Pulsing Interval',
+	  'Please input the pulsing interval when the device is sleeping.<br/>This will affect the LED blinking and dummy load (if enabled).',
+	  parseFloat($('#pulsing_interval').text()),
+	  '1',
+	  '20',
+	  '1',
+	  'seconds',
 	  function(val) {
-	  	sharedWS.addCompositeTask([
-		    { msg: 'wittypi4|api_set_pulsing_interval|' + val, callback: function(event) {
+	  	if (val != null && val >= 1 && val <= 20) {
+        sharedWS.addCompositeTask([
+		    { msg: 'wittypi4|api_set_pulsing_interval|' + parseInt(val), callback: function(event) {
 		    }},
 		    { msg: 'wittypi4|api_get_pulsing_interval', callback: function(event) {
-		      $('#pulsing_interval').text(event.data);
-		    }}
+	       $('#pulsing_interval').text(event.data);
+	      }}
 		  ]);
+	    } else {
+	      msgBox('Pulsing Interval', 'The input value is invalid. It should be a value between 1 and 20.');	
+	    }
 	  }
-	);	
+	);
 };
 
 var set_led_duration = function() {

@@ -209,16 +209,7 @@ api_get_cut_power_delay()
 api_get_pulsing_interval()
 {
   local pi=$(i2c_read 0x01 $I2C_MC_ADDRESS $I2C_CONF_PULSE_INTERVAL)
-  if [ $pi == '0x09' ]; then
-    pi=8
-  elif [ $pi == '0x07' ]; then
-	  pi=2
-	elif [ $pi == '0x06' ]; then
-	  pi=1
-	else
-	  pi=4
-  fi
-  echo "$pi seconds"
+  printf '%d seconds\n' "$pi"
 }
 
 api_get_led_duration()
