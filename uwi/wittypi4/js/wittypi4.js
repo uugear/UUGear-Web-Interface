@@ -47,7 +47,7 @@ var refreshOverview = function() {
       $('#rtc_time').text(event.data);
     }},
     { msg: 'wittypi4|api_get_power_mode', callback: function(event) {
-      if (event.data == 1) {
+      if (event.data != 0) {
         vin.show();
       } else {
         vin.hide();
@@ -63,6 +63,12 @@ var refreshOverview = function() {
     }},
     { msg: 'wittypi4|api_get_output_current', callback: function(event) {
       $('#i_out').text('Iout=' + Number(event.data).toFixed(2) + 'A');
+    }},
+    { msg: 'wittypi4|api_get_battery_status', callback: function(event) {
+      var bs = $('#battery_status').empty();
+      if ($('.revInfo').text() == 'L3V7' && (event.data == 'charging' || event.data == 'discharging')) {
+        bs.append('<img src="img/' + event.data + '.gif" style="margin-left:20px;vertical-align: middle" title="' + event.data + '"/>');
+      }
     }}
   ], true);
 };
@@ -88,10 +94,16 @@ var refreshSettings = function() {
     }},
     { msg: 'wittypi4|api_get_recovery_voltage', callback: function(event) {
       $('#recovery_voltage').text(event.data);
+      if ($('#usbConnAction').is(":visible")) {
+        $('#usb_connect_action').text(event.data == '0V' ? 'do nothing' : 'power on'); 
+      }
     }},
     { msg: 'wittypi4|api_get_default_state', callback: function(event) {
-    	$('#default_state').text(event.data);
+    	on_default_state_updated(event.data);
     }},
+    { msg: 'wittypi4|api_get_default_on_delay', callback: function(event) {
+      $('#default_on_delay').text(event.data + ' seconds');
+	  }},
     { msg: 'wittypi4|api_get_cut_power_delay', callback: function(event) {
       $('#cut_power_delay').text(event.data);
     }},
@@ -321,11 +333,14 @@ var set_low_voltage = function() {
 	if (Number.isNaN(curVal)) {
 	  curVal = 0;	
 	}
+  var model = $('.revInfo').text();
+  var maxVal = (model == 'L3V7' ? 4.2 : 25.0);
+  var minVal = (model == 'L3V7' ? 3.0 : 0);
   inputValue('Low Voltage Threshold',
 	  'Please input the low voltage threshold (0=disabled):',
 	  curVal,
-	  '0',
-	  '25.0',
+	  minVal,
+	  maxVal,
 	  '0.1',
 	  'V',
 	  function(val) {
@@ -359,12 +374,12 @@ var set_recovery_voltage = function() {
 	  function(val) {
 	  	if (val != null && val >= 0 && val <= 25) {
         sharedWS.addCompositeTask([
-		    { msg: 'wittypi4|api_set_recovery_voltage|' + parseInt(val*10), callback: function(event) {
-		    }},
-		    { msg: 'wittypi4|api_get_recovery_voltage', callback: function(event) {
-	       $('#recovery_voltage').text(event.data);
-	      }}
-		  ]);
+  		    { msg: 'wittypi4|api_set_recovery_voltage|' + parseInt(val*10), callback: function(event) {
+  		    }},
+  		    { msg: 'wittypi4|api_get_recovery_voltage', callback: function(event) {
+  	       $('#recovery_voltage').text(event.data);
+  	      }}
+		    ]);
 	    } else {
 	      msgBox('Recovery Voltage Threshold', 'The input value is invalid. It should be a value between 0 and 25.');	
 	    }
@@ -383,11 +398,18 @@ var set_default_state = function() {
 		    { msg: 'wittypi4|api_set_default_state|' + val, callback: function(event) {
 		    }},
 		    { msg: 'wittypi4|api_get_default_state', callback: function(event) {
-		      $('#default_state').text(event.data);
+		      on_default_state_updated(event.data);
 		    }}
 		  ]);
 	  }
 	);
+};
+
+var on_default_state_updated = function(newState) {
+  $('#default_state').text(newState);
+  if ($('.fwRev').text() >= 2) {
+    $('#defaultOnDelay').css('display', newState == 'ON' ? 'block' : 'none');
+  }
 };
 
 var set_cut_power_delay = function() {
@@ -637,6 +659,48 @@ var set_below_temperature_action = function() {
           refreshTemperatureActions();
         });
       }
+	  }
+	);
+};
+
+var set_usb_connect_action = function() {
+  chooseValue('USB Connect Action',
+	  'Please choose the action when USB power is connected.',
+	  [1, 0],
+	  ['power on', 'do nothing'],
+	  $('#usb_connect_action').text() == 'do nothing' ? 1 : 0,
+	  function(action) {
+      sharedWS.addCompositeTask([
+		    { msg: 'wittypi4|api_set_usb_connect_action|' + action, callback: function(event) {
+		    }},
+		    { msg: 'wittypi4|api_get_recovery_voltage', callback: function(event) {
+	       $('#usb_connect_action').text(event.data == '0V' ? 'do nothing' : 'power on');
+	      }}
+	    ]);
+	  }
+	);	
+};
+
+var set_default_on_delay = function() {
+  inputValue('Default On Delay',
+	  'Please input the delay between power connection and Auto-Power-On:',
+	  parseFloat($('#default_on_delay').text()),
+	  '0',
+	  '10',
+	  '1',
+	  'seconds',
+	  function(val) {
+	  	if (val != null && val >= 0 && val <= 10) {
+        sharedWS.addCompositeTask([
+          { msg: 'wittypi4|api_set_default_on_delay|' + parseInt(val), callback: function(event) {
+          }},
+          { msg: 'wittypi4|api_get_default_on_delay', callback: function(event) {
+           $('#default_on_delay').text(event.data + ' seconds');
+          }}
+        ]);
+	    } else {
+	      msgBox('Default On Delay', 'The input value is invalid. It should be a value between 0 and 10.');	
+	    }
 	  }
 	);
 };

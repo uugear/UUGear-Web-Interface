@@ -16,7 +16,7 @@
   </head>
   <body>
   <div class="content">
-    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> Witty Pi 4 <span class='revInfo'></span></H1>
+    <H1><a class='homebutton' href='/' target='_self' title='Back to homepage'>&#10094;&#10094;&#10094;</a> Witty Pi 4 <span class='revInfo'></span><span class='fwRev'></span></H1>
     <div class="section">
       <img class='thumbnail' src="img/wittypi4.jpg" style="float:left; margin-right:10px;"></img>
       <div class="overview" style="line-height: 43px;">
@@ -24,7 +24,7 @@
         <div>Temperature: <span id="temperature"></span></div>
         <div>RPi Time: <span id="rpi_time"></span></div>
         <div>RTC Time: <span id="rtc_time"></span></div>
-        <div><span id="v_in">Vin=</span> <span id="v_out">Vout=</span> <span id="i_out">Iout=</span></div>
+        <div><span id="v_in">Vin=</span> <span id="v_out">Vout=</span> <span id="i_out">Iout=</span> <span id="battery_status"></span></div>
       </div>
       <div class="row">
         <button id="sys_to_rtc">RPi Time &#9658; RTC Time</button>
@@ -52,10 +52,15 @@
         <div class="right"><button id="set_low_voltage">Set</button></div>
         <div class="middle" id="low_voltage">&nbsp;</div>
       </div>
-      <div class="row">
+      <div class="row" id="recoveryVoltage">
         <div class="left">Recovery Voltage:</div>
         <div class="right"><button id="set_recovery_voltage">Set</button></div>
         <div class="middle" id="recovery_voltage">&nbsp;</div>
+      </div>
+      <div class="row" id="usbConnAction">
+        <div class="left">When USB is plugged:</div>
+        <div class="right"><button id="set_usb_connect_action">Set</button></div>
+        <div class="middle" id="usb_connect_action">&nbsp;</div>
       </div>
       <div class="row">
         <div class="left">Over Temperature:</div>
@@ -71,6 +76,11 @@
         <div class="left">Default State:</div>
         <div class="right"><button id="set_default_state">Set</button></div>
         <div class="middle" id="default_state">&nbsp;</div>
+      </div>
+      <div class="row" id="defaultOnDelay">
+        <div class="left">Default ON Delay:</div>
+        <div class="right"><button id="set_default_on_delay">Set</button></div>
+        <div class="middle" id="default_on_delay">&nbsp;</div>
       </div>
       <div class="row">
         <div class="left">Cut Power Delay:</div>
@@ -110,18 +120,29 @@
     </div>
   </div>
   <script>
-  var is_rev2 = false;
   $(document).ready(function(){
   	sharedWS.addTask('wittypi4|api_has_hardware', function(event) {
-      if (event.data != 'yes') {
+      if (event.data == 'no') {
       	missingWittyPi4();
       } else {
+        if (event.data == 'mini') {
+          $('.revInfo').text('Mini');
+          $('.thumbnail').attr('src', 'img/wittypi4_mini.jpg');
+        } else if (event.data == 'l3v7') {
+          $('.revInfo').text('L3V7');
+          $('.thumbnail').attr('src', 'img/wittypi4_l3v7.jpg');
+          $('#recoveryVoltage').css('display', 'none');
+          $('#usbConnAction').css('display', 'block');
+        } 
       	sharedWS.addTask('wittypi4|api_has_software', function(event) {
 	      	if (event.data != 'yes') {
 	      		missingSoftware();
 	      	} else {
 	      		refresh();
 	      	}
+	      });
+        sharedWS.addTask('wittypi4|api_get_firmware_rev', function(event) {
+	      	$('.fwRev').text(event.data);
 	      });
       }
     });
@@ -147,11 +168,13 @@
     
     $('#set_low_voltage').click(set_low_voltage);
     $('#set_recovery_voltage').click(set_recovery_voltage);
+    $('#set_usb_connect_action').click(set_usb_connect_action);
     
     $('#set_over_temperature_action').click(set_over_temperature_action);
     $('#set_below_temperature_action').click(set_below_temperature_action);
     
     $('#set_default_state').click(set_default_state);
+    $('#set_default_on_delay').click(set_default_on_delay);
     $('#set_cut_power_delay').click(set_cut_power_delay);
     $('#set_pulsing_interval').click(set_pulsing_interval);
     $('#set_led_duration').click(set_led_duration);

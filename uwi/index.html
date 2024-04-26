@@ -40,7 +40,14 @@
         }
       }},
       { msg: 'wittypi4|api_has_hardware', callback: function(event) {
-        $('.deviceButton.wittypi4').css("display", event.data != 'yes' ? 'none' : 'block');
+        $('.deviceButton.wittypi4').css("display", event.data == 'no' ? 'none' : 'block');
+        if (event.data == 'mini') {
+          $('.deviceButton.wittypi4 .title').text('Witty Pi 4 Mini');
+          $('.deviceButton.wittypi4 .thumb').attr('src', 'wittypi4/img/thumb_mini.png');
+        } else if (event.data == 'l3v7') {
+          $('.deviceButton.wittypi4 .title').text('Witty Pi 4 L3V7');
+          $('.deviceButton.wittypi4 .thumb').attr('src', 'wittypi4/img/thumb_l3v7.png');
+        }
       }},
       { msg: 'zero2go|api_has_hardware', callback: function(event) {
         $('.deviceButton.zero2go').css("display", event.data != 'yes' ? 'none' : 'block');

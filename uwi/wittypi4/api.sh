@@ -11,7 +11,16 @@ api_has_hardware()
   if (( ${#result} >= 450 )); then
     value=${result:80:2}
     if [ "$value" == "08" ]; then
-		  echo "yes"
+      model=$(i2cget -y 1 8 0)
+      if [ "$model" == "0x36" ]; then
+        echo "mini"
+      elif [ "$model" == "0x26" ]; then
+        echo "full"
+      elif [ "$model" == "0x37" ]; then
+        echo "l3v7"
+      else
+        echo "unknown"
+      fi
 		else
 		  echo "no"
 		fi
@@ -27,6 +36,12 @@ api_has_software()
   else
     echo "no"
   fi
+}
+
+api_get_firmware_rev()
+{
+  local fwRev=$(i2cget -y 1 8 12)
+  printf "%d" $fwRev
 }
 
 api_get_temperature()
@@ -277,6 +292,12 @@ api_set_recovery_voltage()
   echo 'OK'
 }
 
+api_set_usb_connect_action()
+{
+  i2c_write 0x01 $I2C_MC_ADDRESS $I2C_CONF_RECOVERY_VOLTAGE $1 > /dev/null 2>&1
+  echo 'OK'
+}
+
 api_set_default_state()
 {
   i2c_write 0x01 $I2C_MC_ADDRESS $I2C_CONF_DEFAULT_ON $1 > /dev/null 2>&1
@@ -327,7 +348,7 @@ api_set_iout_adjustment()
 
 api_over_temperature_action()
 {
-  res=$(over_temperature_action)
+  local res=$(over_temperature_action)
   if [[ -z "$res" ]]; then
     echo 'not set'
   else
@@ -347,7 +368,7 @@ api_clear_over_temperature_action()
 
 api_below_temperature_action()
 {
-  res=$(below_temperature_action)
+  local res=$(below_temperature_action)
   if [[ -z "$res" ]]; then
     echo 'not set'
   else
@@ -363,4 +384,27 @@ api_set_below_temperature_action()
 api_clear_below_temperature_action()
 {
   clear_below_temperature_action
+}
+
+api_get_battery_status()
+{
+  local gp5=$(gpio -g read 5)
+  local gp6=$(gpio -g read 6)
+  if [ "$gp5" == "1" ] && [ "$gp6" == "1" ]; then
+    echo 'discharging'
+  elif [ "$gp5" == "0" ] && [ "$gp6" == "1" ]; then
+    echo 'charging'  
+  fi
+}
+
+api_get_default_on_delay()
+{
+  local dod=$(i2c_read 0x01 $I2C_MC_ADDRESS $I2C_CONF_DEFAULT_ON_DELAY)
+  printf '%d\n' "$dod"
+}
+
+api_set_default_on_delay()
+{
+  i2c_write 0x01 $I2C_MC_ADDRESS $I2C_CONF_DEFAULT_ON_DELAY $1
+  echo 'OK'
 }

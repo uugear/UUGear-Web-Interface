@@ -24,3 +24,7 @@
   padding: 0px 10px 0px 10px;
   width: 90px;
 }
+
+.fwRev, #usbConnAction, #defaultOnDelay {
+  display: none;
+}
